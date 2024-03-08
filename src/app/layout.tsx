@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 
 import './globals.css';
@@ -16,6 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={latoFont.className}>
+      <head>
+        <title>Idea Theorem</title>
+      </head>
       <body>
         <header className="bg-252F3D py-4 desktop:py-3 pl-17 desktop:pl-header-left">
           <Image

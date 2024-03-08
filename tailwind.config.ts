@@ -20,9 +20,13 @@ const config: Config = {
       colors: {
         '252F3D': '#252F3D',
         '2C3642': '#2C3642',
+        '293343': '#293343',
         A5B6CD: '#A5B6CD',
         '4D5C6F': '#4D5C6F',
         '333333': '#333333',
+        CF4055: '#CF4055',
+        '127C95': '#127C95',
+        D8E0E9: '#D8E0E9',
       },
       height: {
         logoDesktop: '32px',
@@ -37,6 +41,8 @@ const config: Config = {
       },
       spacing: {
         'header-left': '10.375rem',
+        '7.5': '7.5px',
+        '11': '11px',
         '11.5': '11.5px',
         '14.5': '14.5px',
         15: '15px',
@@ -44,6 +50,7 @@ const config: Config = {
         22: '22px',
         25: '25px',
         26: '26px',
+        34: '34px',
         '45': '45px',
         '59': '59px',
         102: '102px',
