@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -38,11 +36,7 @@ const CreateUserAccountForm = ({
   const [showAlert, setShowAlert] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
-  const birthDateRef = {
-    dayRef: useRef<any>(null),
-    monthRef: useRef<any>(null),
-    yearRef: useRef<any>(null),
-  };
+  const dayRef = useRef(null);
 
   const {
     register,
@@ -80,15 +74,7 @@ const CreateUserAccountForm = ({
 
       const json = await response.json();
 
-      if (json.title === 'Success') {
-        setIsSuccess(true);
-        formRef.current?.reset();
-        birthDateRef.dayRef?.current?.setValue(0);
-        birthDateRef.monthRef?.current?.setValue(0);
-        birthDateRef.yearRef?.current?.setValue(0);
-      } else {
-        setIsSuccess(false);
-      }
+      setIsSuccess(json.title === 'Success');
       setShowAlert(true);
     }
   };
@@ -161,7 +147,6 @@ const CreateUserAccountForm = ({
             setValue={setValue}
             setError={setError}
             clearErrors={clearErrors}
-            ref={birthDateRef}
           />
           <Input
             id="email"
@@ -237,11 +222,6 @@ const CreateUserAccountForm = ({
             type={ButtonType.RESET}
             label="Cancel"
             className="desktop:mr-7.5"
-            onClick={() => {
-              birthDateRef.dayRef?.current?.setValue(0);
-              birthDateRef.monthRef?.current?.setValue(0);
-              birthDateRef.yearRef?.current?.setValue(0);
-            }}
           />
           <Button
             type={ButtonType.SUBMIT}
