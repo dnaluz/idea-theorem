@@ -10,6 +10,12 @@ git clone git@github.com:dnaluz/idea-theorem.git
 
 ```
 
+This project was created using node version 18.17.0. A .nvmrc file has been included within the repo and if you have node version manager installed simply run this command from the project root
+
+```bash
+nvm use
+```
+
 Install dependencies, from the project root directory
 
 ```bash
