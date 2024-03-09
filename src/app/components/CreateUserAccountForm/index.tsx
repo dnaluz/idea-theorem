@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 /** Constants */
@@ -35,6 +35,7 @@ const CreateUserAccountForm = ({
 }: CreateUserAccountFormProps) => {
   const [showAlert, setShowAlert] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const {
     register,
@@ -71,7 +72,12 @@ const CreateUserAccountForm = ({
       });
 
       const json = await response.json();
-      setIsSuccess(json.title === 'Success');
+
+      if (json.title === 'Success') {
+        setIsSuccess(true);
+        formRef.current?.reset();
+      }
+
       setShowAlert(true);
     }
   };
@@ -89,7 +95,7 @@ const CreateUserAccountForm = ({
         type={isSuccess ? AlertMessageType.SUCCESS : AlertMessageType.ERROR}
         display={showAlert}
       />
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form onSubmit={handleSubmit(onSubmit)} noValidate ref={formRef}>
         <div className="text-left mb-15 ml-26 desktop:ml-0">
           <h1 className="text-xl leading-30 font-bold text-2C3642">{title}</h1>
         </div>
