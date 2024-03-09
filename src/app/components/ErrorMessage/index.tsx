@@ -4,7 +4,7 @@ export type ErrorMessageProps = {
 
 const ErrorMessage = ({ error }: ErrorMessageProps) => {
   return (
-    <div className="relative text-CF4055 text-xs font-normal">{error}</div>
+    <div className="relative text-CF4055 font-normal text-xs">{error}</div>
   );
 };
 
