@@ -73,10 +73,7 @@ const CreateUserAccountForm = ({
 
       const json = await response.json();
 
-      if (json.title === 'Success') {
-        setIsSuccess(true);
-      }
-
+      setIsSuccess(json.title === 'Success');
       setShowAlert(true);
     }
   };
