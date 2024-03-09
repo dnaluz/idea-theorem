@@ -1,5 +1,8 @@
 const API_URL = 'https://fullstack-test-navy.vercel.app/api/users/create';
 
+/** Constant Values */
+const AUTO_HIDE_DELAY_DEFAULT = 3000;
+
 /** Error Messages */
 const REQUIRED_MESSAGE = 'This field is required';
 const INVALID_PHONE_NUMBER = 'Invalid phone number format';
@@ -19,6 +22,7 @@ const SUCCESS_MESSAGE = 'User account successfully created.';
 export {
   ACCOUNT_ERROR_MESSAGE,
   API_URL,
+  AUTO_HIDE_DELAY_DEFAULT,
   INVALID_BIRTHDATE,
   INVALID_EMAIL,
   INVALID_FULL_NAME,
