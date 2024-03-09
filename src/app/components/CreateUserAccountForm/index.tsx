@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import {
   ACCOUNT_ERROR_MESSAGE,
   API_URL,
+  AUTO_HIDE_DELAY_DEFAULT,
   INVALID_EMAIL,
   INVALID_FULL_NAME,
   INVALID_PASSWORD,
@@ -24,11 +25,13 @@ import Input, { InputTypes } from '@/app/components/Input';
 export type CreateUserAccountFormProps = {
   title: string;
   autoHideAlert: boolean;
+  autoHideDelay?: number;
 };
 
 const CreateUserAccountForm = ({
   title,
   autoHideAlert,
+  autoHideDelay = AUTO_HIDE_DELAY_DEFAULT,
 }: CreateUserAccountFormProps) => {
   const [showAlert, setShowAlert] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -43,7 +46,7 @@ const CreateUserAccountForm = ({
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: Record<string, unknown>) => {
     // No errors submit to API
     if (Object.keys(errors).length === 0) {
       const { day, year } = data;
@@ -75,7 +78,7 @@ const CreateUserAccountForm = ({
 
   useEffect(() => {
     if (autoHideAlert && showAlert) {
-      setTimeout(() => setShowAlert(false), 3000);
+      setTimeout(() => setShowAlert(false), autoHideDelay);
     }
   }, [showAlert, autoHideAlert]);
 
