@@ -51,6 +51,11 @@ const CreateUserAccountForm = ({
       const month = MONTHS.find((m) => m.value === data.month)?.label;
       const date_of_birth = `${day}-${month}-${year}`;
 
+      // Removed these unused keys
+      delete data.day;
+      delete data.year;
+      delete data.month;
+
       const formData = {
         ...data,
         date_of_birth,
@@ -98,7 +103,7 @@ const CreateUserAccountForm = ({
             validationSchema={{
               required: REQUIRED_MESSAGE,
               validate: (value: string) => {
-                if (!value.match(/^[^\W_]+$/)) {
+                if (!value.match(/^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/)) {
                   return INVALID_FULL_NAME;
                 }
               },
