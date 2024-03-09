@@ -124,7 +124,7 @@ const BirthDate = ({
             setValue('day', Number(value));
             setDay(Number(value));
           }}
-          className="w-30%"
+          className="w-32% desktop:w-30%"
         />
         <CustomSelect
           id="month"
@@ -139,7 +139,7 @@ const BirthDate = ({
             setMonth(Number(value));
             setValue('month', Number(value));
           }}
-          className="w-30%"
+          className="w-32% desktop:w-30%"
         />
         <CustomSelect
           id="year"
@@ -154,7 +154,7 @@ const BirthDate = ({
             setYear(Number(value));
             setValue('year', Number(value));
           }}
-          className="w-30%"
+          className="w-32% desktop:w-30%"
         />
       </div>
       {errors?.dob && (

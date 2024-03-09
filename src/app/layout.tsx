@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={latoFont.className}>
+    <html lang="en" className={latoFont.className} suppressHydrationWarning>
       <head>
         <title>Idea Theorem</title>
       </head>
