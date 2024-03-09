@@ -124,8 +124,13 @@ const BirthDate = ({
           errors={errors}
           value={day}
           onChange={(value: number | string) => {
-            setValue('day', Number(value));
-            setDay(Number(value));
+            const day = Number(value);
+            if (day > 31 || day < 1) {
+              setError('day', { type: 'custom', message: 'Invalid day' });
+            } else {
+              setValue('day', Number(value));
+              setDay(Number(value));
+            }
           }}
           className="w-32% desktop:w-30%"
         />
@@ -139,8 +144,14 @@ const BirthDate = ({
           errors={errors}
           value={month}
           onChange={(value: number | string) => {
-            setMonth(Number(value));
-            setValue('month', Number(value));
+            const month = Number(value);
+
+            if (month > 12 || month < 1) {
+              setError('day', { type: 'custom', message: 'Invalid month' });
+            } else {
+              setMonth(Number(value));
+              setValue('month', Number(value));
+            }
           }}
           className="w-32% desktop:w-30%"
         />
@@ -154,8 +165,15 @@ const BirthDate = ({
           errors={errors}
           value={year}
           onChange={(value: number | string) => {
-            setYear(Number(value));
-            setValue('year', Number(value));
+            const year = Number(value);
+            const currentYear = new Date().getFullYear();
+
+            if (year > currentYear) {
+              setError('year', { type: 'custom', message: 'Invalid year' });
+            } else {
+              setYear(Number(value));
+              setValue('year', Number(value));
+            }
           }}
           className="w-32% desktop:w-30%"
         />
