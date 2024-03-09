@@ -36,6 +36,11 @@ const CreateUserAccountForm = ({
   const [showAlert, setShowAlert] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+  const birthDateRef = {
+    dayRef: useRef(null),
+    monthRef: useRef(null),
+    yearRef: useRef(null),
+  };
 
   const {
     register,
@@ -73,7 +78,15 @@ const CreateUserAccountForm = ({
 
       const json = await response.json();
 
-      setIsSuccess(json.title === 'Success');
+      if (json.title === 'Success') {
+        setIsSuccess(true);
+        formRef.current?.reset();
+        birthDateRef.dayRef?.current?.setValue(0);
+        birthDateRef.monthRef?.current?.setValue(0);
+        birthDateRef.yearRef?.current?.setValue(0);
+      } else {
+        setIsSuccess(false);
+      }
       setShowAlert(true);
     }
   };
@@ -146,6 +159,7 @@ const CreateUserAccountForm = ({
             setValue={setValue}
             setError={setError}
             clearErrors={clearErrors}
+            ref={birthDateRef}
           />
           <Input
             id="email"
@@ -221,6 +235,11 @@ const CreateUserAccountForm = ({
             type={ButtonType.RESET}
             label="Cancel"
             className="desktop:mr-7.5"
+            onClick={() => {
+              birthDateRef.dayRef?.current?.setValue(0);
+              birthDateRef.monthRef?.current?.setValue(0);
+              birthDateRef.yearRef?.current?.setValue(0);
+            }}
           />
           <Button
             type={ButtonType.SUBMIT}
