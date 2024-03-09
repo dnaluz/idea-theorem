@@ -30,7 +30,7 @@ const CreateUserAccountForm = ({
   title,
   autoHideAlert,
 }: CreateUserAccountFormProps) => {
-  const [showAlert, setShowAlert] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
   const {
@@ -47,13 +47,14 @@ const CreateUserAccountForm = ({
   const onSubmit = async (data: any) => {
     // No errors submit to API
     if (Object.keys(errors).length === 0) {
+      const { day, year } = data;
+      const month = MONTHS.find((m) => m.value === data.month)?.label;
+      const date_of_birth = `${day}-${month}-${year}`;
+
       const formData = {
         ...data,
+        date_of_birth,
       };
-
-      formData.month = MONTHS.find((m) => m.value === data.month)?.label;
-
-      // Parse data of birth
 
       // Send data to API
       const response = await fetch(API_URL, {
