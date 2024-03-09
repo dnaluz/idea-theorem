@@ -68,6 +68,7 @@ const config: Config = {
         logoMobile: '148px',
         145: '145px',
         426: '426px',
+        '30%': '30%',
       },
     },
   },

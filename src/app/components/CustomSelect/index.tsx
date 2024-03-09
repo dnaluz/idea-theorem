@@ -13,6 +13,7 @@ export type SelectOption = {
 };
 
 export type CustomSelectProps = {
+  className?: string;
   id: string;
   errors: FieldErrors<FieldValues>;
   label: string;
@@ -21,7 +22,6 @@ export type CustomSelectProps = {
   options: SelectOption[];
   required: boolean;
   register: UseFormRegister<FieldValues>;
-  short?: boolean;
   value: number | string | undefined;
 };
 
@@ -34,20 +34,17 @@ const CustomSelect = ({
   onChange,
   register,
   errors,
-  short,
+  className,
 }: CustomSelectProps) => {
   const styles: StylesConfig = {
     control: (styles) => {
       return {
         ...styles,
         height: '50px',
-        width: '115px',
+        width: '100%',
         borderColor: errors[name] || errors.dob ? '#CF4055' : '#A5B6CD',
         fontSize: '18px',
         color: errors[name] || errors.dob ? '#CF4055' : '#4D5C6F',
-        '@media only screen and (max-width: 600px)': {
-          width: short ? '90px' : '115px',
-        },
       };
     },
     placeholder: (styles) => {
@@ -63,7 +60,7 @@ const CustomSelect = ({
   };
 
   return (
-    <div className="relative">
+    <div className={`relative ${className ?? ''}`}>
       <Select
         {...register(name, { required: REQUIRED_MESSAGE })}
         instanceId={id}
