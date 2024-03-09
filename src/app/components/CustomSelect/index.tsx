@@ -1,4 +1,11 @@
-import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
+import { forwardRef } from 'react';
+
+import {
+  FieldErrors,
+  FieldValues,
+  UseFormRegister,
+  useForm,
+} from 'react-hook-form';
 import Select, { StylesConfig } from 'react-select';
 
 /** Constants */
@@ -25,17 +32,22 @@ export type CustomSelectProps = {
   value: number | string | undefined;
 };
 
-const CustomSelect = ({
-  id,
-  label,
-  name,
-  options,
-  required,
-  onChange,
-  register,
-  errors,
-  className,
-}: CustomSelectProps) => {
+const CustomSelect = forwardRef(function CustomSelect(
+  props: CustomSelectProps,
+  currentRef
+) {
+  const {
+    id,
+    label,
+    name,
+    options,
+    required,
+    onChange,
+    register,
+    errors,
+    className,
+  } = props;
+
   const styles: StylesConfig = {
     control: (styles) => {
       return {
@@ -59,10 +71,12 @@ const CustomSelect = ({
     },
   };
 
+  const { ref, ...rest } = register(name, { required: REQUIRED_MESSAGE });
+
   return (
     <div className={`relative ${className ?? ''}`}>
       <Select
-        {...register(name, { required: REQUIRED_MESSAGE })}
+        {...rest}
         instanceId={id}
         placeholder={label}
         name={name}
@@ -75,6 +89,7 @@ const CustomSelect = ({
         onChange={(option: any) => {
           return onChange(option.value);
         }}
+        ref={currentRef}
       />
 
       {errors[name] && (
@@ -88,6 +103,6 @@ const CustomSelect = ({
       )}
     </div>
   );
-};
+});
 
 export default CustomSelect;

@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, forwardRef } from 'react';
 import {
   FieldErrors,
   FieldValues,
@@ -45,15 +45,22 @@ export const MONTHS = [
   { label: 'Dec', value: 12 },
 ];
 
-const BirthDate = ({
-  label,
-  className,
-  register,
-  errors,
-  setValue,
-  setError,
-  clearErrors,
-}: BirthDateProps) => {
+const BirthDate = forwardRef(function BirthDate(
+  props: BirthDateProps,
+  ref: any
+) {
+  const {
+    label,
+    className,
+    register,
+    errors,
+    setValue,
+    setError,
+    clearErrors,
+  } = props;
+
+  const { dayRef, monthRef, yearRef } = ref;
+
   const [year, setYear] = useState<number>(new Date().getFullYear());
   const [month, setMonth] = useState<number>(1);
   const [day, setDay] = useState<number>(1);
@@ -133,6 +140,7 @@ const BirthDate = ({
             }
           }}
           className="w-32% desktop:w-30%"
+          ref={dayRef}
         />
         <CustomSelect
           id="month"
@@ -154,6 +162,7 @@ const BirthDate = ({
             }
           }}
           className="w-32% desktop:w-30%"
+          ref={monthRef}
         />
         <CustomSelect
           id="year"
@@ -176,11 +185,12 @@ const BirthDate = ({
             }
           }}
           className="w-32% desktop:w-30%"
+          ref={yearRef}
         />
       </div>
       {errors?.dob && <ErrorMessage error={INVALID_BIRTHDATE} />}
     </div>
   );
-};
+});
 
 export default BirthDate;
