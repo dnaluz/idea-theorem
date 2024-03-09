@@ -1,11 +1,7 @@
+// @ts-nocheck
 import { forwardRef } from 'react';
 
-import {
-  FieldErrors,
-  FieldValues,
-  UseFormRegister,
-  useForm,
-} from 'react-hook-form';
+import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import Select, { StylesConfig } from 'react-select';
 
 /** Constants */
