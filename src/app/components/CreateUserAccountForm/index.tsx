@@ -37,9 +37,9 @@ const CreateUserAccountForm = ({
   const [isSuccess, setIsSuccess] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const birthDateRef = {
-    dayRef: useRef(null),
-    monthRef: useRef(null),
-    yearRef: useRef(null),
+    dayRef: useRef<any>(null),
+    monthRef: useRef<any>(null),
+    yearRef: useRef<any>(null),
   };
 
   const {
