@@ -124,6 +124,7 @@ const BirthDate = ({
             setValue('day', Number(value));
             setDay(Number(value));
           }}
+          short
         />
         <CustomSelect
           id="month"

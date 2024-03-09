@@ -1,5 +1,8 @@
-import { FieldValues, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
 import Select, { StylesConfig } from 'react-select';
+
+/** Constants */
+import { REQUIRED_MESSAGE } from '@/app/constants';
 
 /** Components */
 import ErrorMessage from '@/app/components/ErrorMessage';
@@ -11,13 +14,14 @@ export type SelectOption = {
 
 export type CustomSelectProps = {
   id: string;
+  errors: FieldErrors<FieldValues>;
   label: string;
   name: string;
+  onChange: (value: string | number) => void;
   options: SelectOption[];
   required: boolean;
-  onChange: (value: string | number) => void;
   register: UseFormRegister<FieldValues>;
-  errors: any;
+  short?: boolean;
   value: number | string | undefined;
 };
 
@@ -30,6 +34,7 @@ const CustomSelect = ({
   onChange,
   register,
   errors,
+  short,
 }: CustomSelectProps) => {
   const styles: StylesConfig = {
     control: (styles) => {
@@ -39,7 +44,10 @@ const CustomSelect = ({
         width: '115px',
         borderColor: errors[name] || errors.dob ? '#CF4055' : '#A5B6CD',
         fontSize: '18px',
-        color: errors[name] || errors.dob ? 'C#F4055' : '#4D5C6F',
+        color: errors[name] || errors.dob ? '#CF4055' : '#4D5C6F',
+        '@media only screen and (max-width: 600px)': {
+          width: short ? '90px' : '115px',
+        },
       };
     },
     placeholder: (styles) => {
@@ -57,7 +65,7 @@ const CustomSelect = ({
   return (
     <div className="relative">
       <Select
-        {...register(name, { required: 'This field is required' })}
+        {...register(name, { required: REQUIRED_MESSAGE })}
         instanceId={id}
         placeholder={label}
         name={name}
@@ -75,7 +83,9 @@ const CustomSelect = ({
       {errors[name] && (
         <ErrorMessage
           error={
-            (errors[name].message || errors.dob) ?? 'This field is required'
+            errors[name]?.message || errors.dob
+              ? `${errors[name]?.message}`
+              : REQUIRED_MESSAGE
           }
         />
       )}
