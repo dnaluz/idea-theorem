@@ -53,6 +53,6 @@ I have taken some assumptions when creating the different components.
 
 3. A few assumptions were made with regards to how the responsiveness of the page works, in an ideal world I am in close contact with the UX/Designer and we figure out the most ideal way to handle how the different components react to screen size change.
 
-4. I didn't add any additional functionality to the cancel button as there were no requirements provided for that specific action and the description of the test was to focus on the functionality of of the form validation and error handling. Furthermore no requirements were provided for what happens after the form submits successfully, so all that happens is the Alert pops up in green with the success message when it is submitted successfully.
+4. I didn't add any additional functionality to the cancel button as there were no requirements provided for that specific action and the description of the test was to focus on the functionality of the form validation and error handling. Furthermore no requirements were provided for what happens after the form submits successfully, so all that happens is the Alert pops up in green with the success message when it is submitted successfully.
 
 5. While running some tests I noticed that the API endpoint does not need the date_of_birth field to be provided to return a success message, just something I noticed while running a few tests against the API.
