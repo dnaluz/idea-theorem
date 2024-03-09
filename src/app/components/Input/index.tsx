@@ -41,7 +41,7 @@ const Input = ({
   validationSchema,
   errors,
 }: InputProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const { ref, ...rest } = register(name, validationSchema);
 
   const errorMessage = `${errors[name]?.message}` ?? 'Invalid input';
