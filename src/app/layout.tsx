@@ -5,6 +5,7 @@ import Image from 'next/image';
 import './globals.css';
 import { Lato } from 'next/font/google';
 import logo from '@/../public/logo.svg';
+import logoMobile from '@/../public/logo-mobile.svg';
 
 const latoFont = Lato({
   weight: ['100', '300', '400', '700'],
@@ -28,7 +29,14 @@ export default function RootLayout({
             width="294"
             height="32"
             alt="Idea Theorem Logo"
-            className="w-logoMobile desktop:w-logoDesktop h-logoMobile desktop:h-logoDesktop"
+            className="hidden desktop:block"
+          />
+          <Image
+            src={logoMobile}
+            alt="Idea Theorem Logo"
+            width="148"
+            height="16"
+            className="desktop:hidden"
           />
         </header>
         {children}
