@@ -37,7 +37,6 @@ const CreateUserAccountForm = ({
     register,
     handleSubmit,
     watch,
-    control,
     setValue,
     setError,
     clearErrors,
@@ -138,7 +137,6 @@ const CreateUserAccountForm = ({
             className="mt-4"
             register={register}
             validationSchema={{ required: true }}
-            control={control}
             errors={errors}
             setValue={setValue}
             setError={setError}

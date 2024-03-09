@@ -11,18 +11,21 @@ const INVALID_PASSWORD =
   'Password must contain an uppercase letter, lowercase letter and a number';
 const INVALID_PASSWORD_MATCH = 'Passwords do not match';
 const INVALID_PASSWORD_SHORT = 'Passwords is not short';
+const INVALID_BIRTHDATE = 'Birthdate must be in the past';
+
 /** Success Messages */
 const SUCCESS_MESSAGE = 'User account successfully created.';
 
 export {
   ACCOUNT_ERROR_MESSAGE,
   API_URL,
-  INVALID_PHONE_NUMBER,
+  INVALID_BIRTHDATE,
   INVALID_EMAIL,
   INVALID_FULL_NAME,
   INVALID_PASSWORD,
   INVALID_PASSWORD_MATCH,
   INVALID_PASSWORD_SHORT,
+  INVALID_PHONE_NUMBER,
   REQUIRED_MESSAGE,
   SUCCESS_MESSAGE,
 };

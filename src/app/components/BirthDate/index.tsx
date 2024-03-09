@@ -9,8 +9,12 @@ import {
   UseFormSetError,
 } from 'react-hook-form';
 
+/** Constants */
+import { INVALID_BIRTHDATE } from '@/app/constants';
+
 /** Components */
 import CustomSelect from '@/app/components/CustomSelect';
+import ErrorMessage from '@/app/components/ErrorMessage';
 
 export type BirthDateProps = {
   label: string;
@@ -21,7 +25,6 @@ export type BirthDateProps = {
     validate?: (value: string) => string | undefined;
   };
   errors: FieldErrors<FieldValues>;
-  control: any;
   setValue: UseFormSetValue<FieldValues>;
   setError: UseFormSetError<FieldValues>;
   clearErrors: UseFormClearErrors<FieldValues>;
@@ -66,7 +69,7 @@ const BirthDate = ({
       let startDay = 1;
 
       while (startDay <= numberOfDaysInMonth) {
-        daysInMonth.push({ label: `${startDay}`, value: startDay });
+        daysInMonth.push({ label: startDay.toString(), value: startDay });
         startDay++;
       }
     }
@@ -81,7 +84,7 @@ const BirthDate = ({
     const years: { label: string; value: number }[] = [];
 
     while (startYear <= currentYear) {
-      years.push({ label: `${startYear}`, value: startYear });
+      years.push({ label: startYear.toString(), value: startYear });
       startYear++;
     }
 
@@ -99,7 +102,7 @@ const BirthDate = ({
       Number(month) === currentMonth &&
       Number(day) >= currentDay
     ) {
-      setError('dob', { type: 'custom', message: 'Invalid DOB' });
+      setError('dob', { type: 'custom', message: INVALID_BIRTHDATE });
     } else {
       clearErrors(['year', 'month', 'day', 'dob']);
     }
@@ -157,11 +160,7 @@ const BirthDate = ({
           className="w-32% desktop:w-30%"
         />
       </div>
-      {errors?.dob && (
-        <div className="text-CF4055 text-xs font-normal">
-          Birthdate must be in the past
-        </div>
-      )}
+      {errors?.dob && <ErrorMessage error={INVALID_BIRTHDATE} />}
     </div>
   );
 };
