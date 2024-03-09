@@ -1,6 +1,13 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { UseFormRegister, FieldValues } from 'react-hook-form';
+import {
+  FieldErrors,
+  FieldValues,
+  UseFormSetValue,
+  UseFormClearErrors,
+  UseFormRegister,
+  UseFormSetError,
+} from 'react-hook-form';
 
 /** Components */
 import CustomSelect from '@/app/components/CustomSelect';
@@ -9,12 +16,15 @@ export type BirthDateProps = {
   label: string;
   className: string;
   register: UseFormRegister<FieldValues>;
-  validationSchema?: any;
+  validationSchema?: {
+    required?: string | boolean;
+    validate?: (value: string) => string | undefined;
+  };
+  errors: FieldErrors<FieldValues>;
   control: any;
-  errors: any;
-  setValue: any;
-  setError: any;
-  clearErrors: any;
+  setValue: UseFormSetValue<FieldValues>;
+  setError: UseFormSetError<FieldValues>;
+  clearErrors: UseFormClearErrors<FieldValues>;
 };
 
 export const MONTHS = [

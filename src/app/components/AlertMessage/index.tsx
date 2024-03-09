@@ -12,7 +12,7 @@ export type AlertMessageProps = {
 const AlertMessage = ({ message, type, display }: AlertMessageProps) => {
   return (
     <div
-      className={`rounded p-19 desktop:py-6 desktop:px-8 desktop:w-426 absolute right-[-388px] top-[45px] transition-opacity duration-500 ${
+      className={`absolute rounded p-19 left-1/2 bottom-[180px] -translate-x-1/2 desktop:py-6 desktop:px-8 w-full desktop:bottom-auto desktop:left-auto desktop:w-426 desktop:-translate-x-0 desktop:right-[-388px] desktop:top-[45px] transition-opacity duration-500 ${
         display ? 'opacity-100' : 'opacity-0'
       } ${type === AlertMessageType.SUCCESS ? 'bg-CDFADC' : 'bg-FFC0C0'}`}
     >

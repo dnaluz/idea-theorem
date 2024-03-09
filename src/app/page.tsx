@@ -6,7 +6,7 @@ import CreateUserAccountForm from '@/app/components/CreateUserAccountForm';
 const Home = () => {
   return (
     <main>
-      <CreateUserAccountForm title="Create User Account" />
+      <CreateUserAccountForm title="Create User Account" autoHideAlert={true} />
     </main>
   );
 };

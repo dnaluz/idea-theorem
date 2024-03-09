@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { UseFormRegister, FieldValues } from 'react-hook-form';
+import { UseFormRegister, FieldValues, FieldErrors } from 'react-hook-form';
 
 /** Components */
 import ErrorMessage from '@/app/components/ErrorMessage';
@@ -22,8 +22,11 @@ export type InputProps = {
   required?: boolean;
   type: InputTypes.TEXT | InputTypes.PASSWORD;
   register: UseFormRegister<FieldValues>;
-  validationSchema?: any;
-  errors: any;
+  validationSchema?: {
+    required?: string;
+    validate: (value: string) => string | undefined;
+  };
+  errors: FieldErrors<FieldValues>;
 };
 
 const Input = ({
@@ -41,6 +44,7 @@ const Input = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const { ref, ...rest } = register(name, validationSchema);
 
+  const errorMessage = `${errors[name]?.message}` ?? 'Invalid input';
   return (
     <div className={`relative box-border ${className ? className : ''}`}>
       <label
@@ -74,7 +78,7 @@ const Input = ({
       >
         {placeholder}
       </div>
-      {errors[name] && <ErrorMessage error={errors[name]?.message} />}
+      {errors[name] && <ErrorMessage error={errorMessage} />}
     </div>
   );
 };

@@ -1,5 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+
+/** Constants */
+import {
+  ACCOUNT_ERROR_MESSAGE,
+  API_URL,
+  INVALID_EMAIL,
+  INVALID_FULL_NAME,
+  INVALID_PASSWORD,
+  INVALID_PASSWORD_MATCH,
+  INVALID_PASSWORD_SHORT,
+  INVALID_PHONE_NUMBER,
+  REQUIRED_MESSAGE,
+  SUCCESS_MESSAGE,
+} from '@/app/constants';
 
 /** Components */
 import AlertMessage, { AlertMessageType } from '@/app/components/AlertMessage';
@@ -9,10 +23,14 @@ import Input, { InputTypes } from '@/app/components/Input';
 
 export type CreateUserAccountFormProps = {
   title: string;
+  autoHideAlert: boolean;
 };
 
-const CreateUserAccountForm = ({ title }: CreateUserAccountFormProps) => {
-  const [showAlert, setShowAlert] = useState(false);
+const CreateUserAccountForm = ({
+  title,
+  autoHideAlert,
+}: CreateUserAccountFormProps) => {
+  const [showAlert, setShowAlert] = useState(true);
   const [isSuccess, setIsSuccess] = useState(false);
 
   const {
@@ -34,14 +52,15 @@ const CreateUserAccountForm = ({ title }: CreateUserAccountFormProps) => {
       };
 
       formData.month = MONTHS.find((m) => m.value === data.month)?.label;
-      const response = await fetch(
-        'https://fullstack-test-navy.vercel.app/api/users/create',
-        {
-          method: 'POST',
-          body: JSON.stringify(formData),
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+
+      // Parse data of birth
+
+      // Send data to API
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        body: JSON.stringify(formData),
+        headers: { 'Content-Type': 'application/json' },
+      });
 
       const json = await response.json();
       setIsSuccess(json.title === 'Success');
@@ -49,14 +68,16 @@ const CreateUserAccountForm = ({ title }: CreateUserAccountFormProps) => {
     }
   };
 
+  useEffect(() => {
+    if (autoHideAlert && showAlert) {
+      setTimeout(() => setShowAlert(false), 3000);
+    }
+  }, [showAlert, autoHideAlert]);
+
   return (
     <section className="relative mt-59 desktop:mt-45 w-full desktop:max-w-form mx-auto">
       <AlertMessage
-        message={
-          isSuccess
-            ? 'User account successfully created.'
-            : 'There was an error creating the account.'
-        }
+        message={isSuccess ? SUCCESS_MESSAGE : ACCOUNT_ERROR_MESSAGE}
         type={isSuccess ? AlertMessageType.SUCCESS : AlertMessageType.ERROR}
         display={showAlert}
       />
@@ -74,10 +95,10 @@ const CreateUserAccountForm = ({ title }: CreateUserAccountFormProps) => {
             required
             register={register}
             validationSchema={{
-              required: 'This field is required',
+              required: REQUIRED_MESSAGE,
               validate: (value: string) => {
                 if (!value.match(/^[^\W_]+$/)) {
-                  return 'Invalid value, no symbols allowed';
+                  return INVALID_FULL_NAME;
                 }
               },
             }}
@@ -93,14 +114,14 @@ const CreateUserAccountForm = ({ title }: CreateUserAccountFormProps) => {
             placeholder="Contact Number"
             register={register}
             validationSchema={{
-              required: 'This field is required',
+              required: REQUIRED_MESSAGE,
               validate: (value: string) => {
                 if (
                   !value.match(
                     /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
                   )
                 ) {
-                  return 'Invalid phone number format';
+                  return INVALID_PHONE_NUMBER;
                 }
               },
             }}
@@ -127,14 +148,14 @@ const CreateUserAccountForm = ({ title }: CreateUserAccountFormProps) => {
             placeholder="Email Address"
             register={register}
             validationSchema={{
-              required: 'This field is required',
+              required: REQUIRED_MESSAGE,
               validate: (value: string) => {
                 if (
                   !value.match(
                     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                   )
                 ) {
-                  return 'Sorry, this email address is not valid.  Please try again.';
+                  return INVALID_EMAIL;
                 }
               },
             }}
@@ -150,17 +171,17 @@ const CreateUserAccountForm = ({ title }: CreateUserAccountFormProps) => {
             placeholder="Create Password"
             register={register}
             validationSchema={{
-              required: 'This field is required',
+              required: REQUIRED_MESSAGE,
               validate: (value: string) => {
                 if (value.length < 8) {
-                  return 'Password is to short';
+                  return INVALID_PASSWORD_SHORT;
                 }
                 if (
                   !value.match(/[A-Z]/) ||
                   !value.match(/[a-z]/) ||
                   !value.match(/[0-9]/)
                 ) {
-                  return 'Password must contain an uppercase letter, lowercase letter and a number';
+                  return INVALID_PASSWORD;
                 }
               },
             }}
@@ -176,10 +197,10 @@ const CreateUserAccountForm = ({ title }: CreateUserAccountFormProps) => {
             placeholder="Confirm Password"
             register={register}
             validationSchema={{
-              required: 'This field is required',
+              required: REQUIRED_MESSAGE,
               validate: (value: string) => {
                 if (watch('password') !== value) {
-                  return 'Passwords do not match';
+                  return INVALID_PASSWORD_MATCH;
                 }
               },
             }}
