@@ -29,7 +29,6 @@ body {
 
 .form {
   background: #ffffff;
-  box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.15);
   @media only screen and (min-width: 600px) {
     box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
     border-radius: 8px;
@@ -43,7 +42,7 @@ select {
   width: 124px;
 }
 
-input[required] ~ div {
+input[required] ~ div:nth-of-type(1) {
   font-family: '__Lato_712376', '__Lato_Fallback_712376';
   font-size: 18px;
   position: absolute;
@@ -51,13 +50,13 @@ input[required] ~ div {
   top: 45px;
 }
 
-input[required] ~ div:after {
+input[required] ~ div:nth-of-type(1):after {
   content: '*';
   color: #cf4055;
 }
 
 /* show the placeholder when input has no content (no content = invalid) */
-input[required]:invalid ~ div {
+input[required]:invalid ~ div:nth-of-type(1) {
   display: inline-block;
 }
 
@@ -66,7 +65,7 @@ input[required]:invalid ~ span {
 }
 
 /* hide the placeholder when input has some text typed in */
-input[required]:valid ~ div {
+input[required]:valid ~ div:nth-of-type(1) {
   display: none;
 }
 

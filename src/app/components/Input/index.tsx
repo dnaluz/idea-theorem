@@ -1,6 +1,10 @@
 'use client';
 
-import { createRef } from 'react';
+import { useRef } from 'react';
+import { UseFormRegister, FieldValues } from 'react-hook-form';
+
+/** Components */
+import ErrorMessage from '@/app/components/ErrorMessage';
 
 export enum InputTypes {
   EMAIL = 'email',
@@ -11,26 +15,32 @@ export enum InputTypes {
 
 export type InputProps = {
   className?: string;
-  error?: boolean;
   id: string;
   label: string;
   name: string;
   placeholder?: string;
   required?: boolean;
   type: InputTypes.TEXT | InputTypes.PASSWORD;
+  register: UseFormRegister<FieldValues>;
+  validationSchema?: any;
+  errors: any;
 };
 
 const Input = ({
   className,
-  error,
   id,
   label,
   name,
   placeholder,
   type,
   required,
+  register,
+  validationSchema,
+  errors,
 }: InputProps) => {
-  const ref = createRef<HTMLInputElement>();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const { ref, ...rest } = register(name, validationSchema);
+
   return (
     <div className={`relative box-border ${className ? className : ''}`}>
       <label
@@ -41,11 +51,16 @@ const Input = ({
       </label>
       <input
         id={id}
-        name={name}
-        className={`block border-A5B6CD border-1 rounded w-full px-4 py-11.5 mt-2.5 text-2C3642 `}
+        className={`block ${
+          errors[name] ? 'border-CF4055' : 'border-A5B6CD'
+        } border-1 rounded w-full px-4 py-11.5 mt-2.5 text-2C3642 `}
         type={type}
         required={required}
-        ref={ref}
+        {...rest}
+        ref={(e) => {
+          ref(e);
+          inputRef.current = e;
+        }}
       />
       <span className="absolute left-4 top-26 bg-white text-xs text-4D5C6F leading-18 px-1">
         {placeholder}
@@ -54,11 +69,12 @@ const Input = ({
       <div
         className="text-lg text-4D5C6F font-normal"
         onClick={() => {
-          ref.current?.focus();
+          inputRef.current?.focus();
         }}
       >
         {placeholder}
       </div>
+      {errors[name] && <ErrorMessage error={errors[name]?.message} />}
     </div>
   );
 };

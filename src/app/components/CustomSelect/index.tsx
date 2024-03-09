@@ -1,4 +1,8 @@
+import { FieldValues, UseFormRegister } from 'react-hook-form';
 import Select, { StylesConfig } from 'react-select';
+
+/** Components */
+import ErrorMessage from '@/app/components/ErrorMessage';
 
 export type SelectOption = {
   label: string;
@@ -12,6 +16,9 @@ export type CustomSelectProps = {
   options: SelectOption[];
   required: boolean;
   onChange: (value: string | number) => void;
+  register: UseFormRegister<FieldValues>;
+  errors: any;
+  value: number | string | undefined;
 };
 
 const CustomSelect = ({
@@ -21,6 +28,8 @@ const CustomSelect = ({
   options,
   required,
   onChange,
+  register,
+  errors,
 }: CustomSelectProps) => {
   const styles: StylesConfig = {
     control: (styles) => {
@@ -28,9 +37,9 @@ const CustomSelect = ({
         ...styles,
         height: '50px',
         width: '115px',
-        borderColor: '#A5B6CD',
+        borderColor: errors[name] || errors.dob ? '#CF4055' : '#A5B6CD',
         fontSize: '18px',
-        color: '#4D5C6F',
+        color: errors[name] || errors.dob ? 'C#F4055' : '#4D5C6F',
       };
     },
     placeholder: (styles) => {
@@ -48,6 +57,7 @@ const CustomSelect = ({
   return (
     <div className="relative">
       <Select
+        {...register(name, { required: 'This field is required' })}
         instanceId={id}
         placeholder={label}
         name={name}
@@ -61,6 +71,14 @@ const CustomSelect = ({
           return onChange(option.value);
         }}
       />
+
+      {errors[name] && (
+        <ErrorMessage
+          error={
+            (errors[name].message || errors.dob) ?? 'This field is required'
+          }
+        />
+      )}
     </div>
   );
 };

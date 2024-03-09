@@ -17,7 +17,7 @@ const Button = ({ className, label, type, onClick }: ButtonProps) => {
       onClick={() => {
         if (onClick) onClick();
       }}
-      className={`rounded-md ${className ?? ''} ${
+      className={`rounded-md desktop:w-145 desktop:h-46 ${className ?? ''} ${
         type === ButtonType.SUBMIT
           ? 'bg-127C95 text-white px-34 py-11'
           : 'bg-white border-127C95 border-1 text-127C95 px-8 py-2.5 mb-3 desktop:mb-0'

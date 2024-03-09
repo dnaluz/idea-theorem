@@ -27,13 +27,17 @@ const config: Config = {
         CF4055: '#CF4055',
         '127C95': '#127C95',
         D8E0E9: '#D8E0E9',
+        CDFADC: '#CDFADC',
+        FFC0C0: '#FFC0C0',
       },
       height: {
         logoDesktop: '32px',
         logoMobile: '16px',
+        46: '46px',
       },
       lineHeight: {
         18: '18px',
+        27: '27px',
         30: '30px',
       },
       screens: {
@@ -47,6 +51,7 @@ const config: Config = {
         '14.5': '14.5px',
         15: '15px',
         17: '17px',
+        19: '19px',
         22: '22px',
         25: '25px',
         26: '26px',
@@ -62,6 +67,8 @@ const config: Config = {
       width: {
         logoDesktop: '294px',
         logoMobile: '148px',
+        145: '145px',
+        426: '426px',
       },
     },
   },
