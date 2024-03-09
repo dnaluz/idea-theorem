@@ -75,7 +75,6 @@ const CreateUserAccountForm = ({
 
       if (json.title === 'Success') {
         setIsSuccess(true);
-        formRef.current?.reset();
       }
 
       setShowAlert(true);
