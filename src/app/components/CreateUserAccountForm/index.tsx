@@ -54,6 +54,21 @@ const CreateUserAccountForm = ({
     formState: { errors },
   } = useForm();
 
+  const clearForm = () => {
+    birthDayRef?.dayRef?.current?.setValue('day', null);
+    setValue('day', null);
+    birthDayRef?.monthRef?.current?.setValue('month', null);
+    setValue('month', null);
+    birthDayRef?.yearRef?.current?.setValue('year', null);
+    setValue('year', null);
+
+    setValue('full_name', null);
+    setValue('contact_number', null);
+    setValue('email', null);
+    setValue('password', null);
+    setValue('confirm_password', null);
+  };
+
   const onSubmit = async (data: Record<string, unknown>) => {
     // No errors submit to API
 
@@ -76,7 +91,12 @@ const CreateUserAccountForm = ({
 
       const json = await response.json();
 
-      setIsSuccess(json.title === 'Success');
+      if (json.title === 'Success') {
+        clearForm();
+        setIsSuccess(true);
+      } else {
+        setIsSuccess(false);
+      }
       setShowAlert(true);
     }
   };
@@ -226,18 +246,7 @@ const CreateUserAccountForm = ({
             label="Cancel"
             className="desktop:mr-7.5"
             onClick={() => {
-              birthDayRef?.dayRef?.current?.setValue('day', null);
-              setValue('day', null);
-              birthDayRef?.monthRef?.current?.setValue('month', null);
-              setValue('month', null);
-              birthDayRef?.yearRef?.current?.setValue('year', null);
-              setValue('year', null);
-
-              clearErrors('full_name');
-              clearErrors('contact_number');
-              clearErrors('email');
-              clearErrors('password');
-              clearErrors('confirm_password');
+              clearForm();
             }}
           />
           <Button
