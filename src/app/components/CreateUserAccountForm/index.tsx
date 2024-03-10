@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { SelectInstance } from 'react-select';
+import { SelectInstance, SetValueAction } from 'react-select';
 
 /** Constants */
 import {
@@ -54,11 +54,20 @@ const CreateUserAccountForm = ({
   } = useForm();
 
   const clearForm = () => {
-    birthDayRef?.dayRef?.current?.setValue('day', null as any);
+    birthDayRef?.dayRef?.current?.setValue(
+      'day',
+      null as unknown as SetValueAction
+    );
     setValue('day', null);
-    birthDayRef?.monthRef?.current?.setValue('month', null as any);
+    birthDayRef?.monthRef?.current?.setValue(
+      'month',
+      null as unknown as SetValueAction
+    );
     setValue('month', null);
-    birthDayRef?.yearRef?.current?.setValue('year', null as any);
+    birthDayRef?.yearRef?.current?.setValue(
+      'year',
+      null as unknown as SetValueAction
+    );
     setValue('year', null);
 
     setValue('full_name', null);
