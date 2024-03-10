@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SelectInstance } from 'react-select';
@@ -55,11 +54,11 @@ const CreateUserAccountForm = ({
   } = useForm();
 
   const clearForm = () => {
-    birthDayRef?.dayRef?.current?.setValue('day', null);
+    birthDayRef?.dayRef?.current?.setValue('day', null as any);
     setValue('day', null);
-    birthDayRef?.monthRef?.current?.setValue('month', null);
+    birthDayRef?.monthRef?.current?.setValue('month', null as any);
     setValue('month', null);
-    birthDayRef?.yearRef?.current?.setValue('year', null);
+    birthDayRef?.yearRef?.current?.setValue('year', null as any);
     setValue('year', null);
 
     setValue('full_name', null);
@@ -169,7 +168,7 @@ const CreateUserAccountForm = ({
             setValue={setValue}
             setError={setError}
             clearErrors={clearErrors}
-            ref={birthDayRef}
+            ref={birthDayRef as any}
           />
           <Input
             id="email"
