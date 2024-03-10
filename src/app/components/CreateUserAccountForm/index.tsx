@@ -75,6 +75,17 @@ const CreateUserAccountForm = ({
     setValue('email', null);
     setValue('password', null);
     setValue('confirm_password', null);
+
+    clearErrors([
+      'full_name',
+      'contact_number',
+      'email',
+      'day',
+      'month',
+      'year',
+      'password',
+      'confirm_password',
+    ]);
   };
 
   const onSubmit = async (data: Record<string, unknown>) => {
