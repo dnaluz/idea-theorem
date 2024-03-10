@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { forwardRef } from 'react';
 
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
@@ -28,7 +27,7 @@ export type CustomSelectProps = {
   value: number | string | undefined;
 };
 
-const CustomSelect = forwardRef(function (props: CustomSelectProps, ref) {
+const CustomSelect = forwardRef(function (props: CustomSelectProps, ref: any) {
   const {
     id,
     label,

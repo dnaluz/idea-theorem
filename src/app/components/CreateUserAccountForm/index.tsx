@@ -232,6 +232,12 @@ const CreateUserAccountForm = ({
               setValue('month', null);
               birthDayRef?.yearRef?.current?.setValue('year', null);
               setValue('year', null);
+
+              clearErrors('full_name');
+              clearErrors('contact_number');
+              clearErrors('email');
+              clearErrors('password');
+              clearErrors('confirm_password');
             }}
           />
           <Button
