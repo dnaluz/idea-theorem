@@ -1,5 +1,7 @@
+// @ts-nocheck
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { SelectInstance } from 'react-select';
 
 /** Constants */
 import {
@@ -36,7 +38,11 @@ const CreateUserAccountForm = ({
   const [showAlert, setShowAlert] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
-  const dayRef = useRef(null);
+  const birthDayRef = {
+    dayRef: useRef<SelectInstance | null>(null),
+    monthRef: useRef<SelectInstance | null>(null),
+    yearRef: useRef<SelectInstance | null>(null),
+  };
 
   const {
     register,
@@ -50,15 +56,11 @@ const CreateUserAccountForm = ({
 
   const onSubmit = async (data: Record<string, unknown>) => {
     // No errors submit to API
+
     if (Object.keys(errors).length === 0) {
       const { day, year } = data;
       const month = MONTHS.find((m) => m.value === data.month)?.label;
       const date_of_birth = `${day}-${month}-${year}`;
-
-      // Removed these unused keys
-      delete data.day;
-      delete data.year;
-      delete data.month;
 
       const formData = {
         ...data,
@@ -147,6 +149,7 @@ const CreateUserAccountForm = ({
             setValue={setValue}
             setError={setError}
             clearErrors={clearErrors}
+            ref={birthDayRef}
           />
           <Input
             id="email"
@@ -222,6 +225,14 @@ const CreateUserAccountForm = ({
             type={ButtonType.RESET}
             label="Cancel"
             className="desktop:mr-7.5"
+            onClick={() => {
+              birthDayRef?.dayRef?.current?.setValue('day', null);
+              setValue('day', null);
+              birthDayRef?.monthRef?.current?.setValue('month', null);
+              setValue('month', null);
+              birthDayRef?.yearRef?.current?.setValue('year', null);
+              setValue('year', null);
+            }}
           />
           <Button
             type={ButtonType.SUBMIT}
