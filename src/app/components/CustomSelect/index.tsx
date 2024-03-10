@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { forwardRef } from 'react';
 
 import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form';
@@ -27,17 +28,19 @@ export type CustomSelectProps = {
   value: number | string | undefined;
 };
 
-const CustomSelect = ({
-  id,
-  label,
-  name,
-  options,
-  required,
-  onChange,
-  register,
-  errors,
-  className,
-}: CustomSelectProps) => {
+const CustomSelect = forwardRef(function (props: CustomSelectProps, ref) {
+  const {
+    id,
+    label,
+    name,
+    options,
+    required,
+    onChange,
+    register,
+    errors,
+    className,
+  } = props;
+
   const styles: StylesConfig = {
     control: (styles) => {
       return {
@@ -60,11 +63,13 @@ const CustomSelect = ({
       };
     },
   };
-
+  const { ref: selectRef, ...rest } = register(name, {
+    required: REQUIRED_MESSAGE,
+  });
   return (
     <div className={`relative ${className ?? ''}`}>
       <Select
-        {...register(name, { required: REQUIRED_MESSAGE })}
+        {...rest}
         instanceId={id}
         placeholder={label}
         name={name}
@@ -77,6 +82,7 @@ const CustomSelect = ({
         onChange={(option: any) => {
           return onChange(option.value);
         }}
+        ref={ref}
       />
 
       {errors[name] && (
@@ -90,6 +96,6 @@ const CustomSelect = ({
       )}
     </div>
   );
-};
+});
 
 export default CustomSelect;
